@@ -7,7 +7,7 @@
 
 def join(T,R):
     """ join the test and results list """
-    res =[]
+    res = []
     for e in R:
         res += T[e]
     return res
@@ -24,6 +24,5 @@ def canUnlockAll(boxes):
                 total.append(j)
                 index += 1
                 added = True
-    print (total)
   
     return len(total) == len(boxes)

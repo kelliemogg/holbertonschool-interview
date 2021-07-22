@@ -17,6 +17,8 @@ def canUnlockAll(boxes):
     index = 0
     total = list(set(boxes[0])| {0})
     added = True
+    if len(boxes) == len(boxes[0]):
+        return True
     try:
         while added:
             added = False

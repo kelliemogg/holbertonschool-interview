@@ -9,52 +9,56 @@
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-    int i;
-    listint_t *newb, *temp = *head, *hold;
+    listint_t *newb, *temp = *head;
 
     /* making space */
     newb = malloc(sizeof(listint_t));
+
+    /* if nothing is passed free it */
     if (newb == NULL)
     {
         free (newb);
         return (NULL);
     }
     newb->n = number;
+    /* add node to the beginning */
     if (number < temp->n)
     {
         newb->next = temp;
         *head = newb;
         return newb;
     }
+    /* empty list */
     if (*head == NULL)
     {
         *head = newb;
         return newb;
     }
-        /* loop through and start comparing values */
-    for (i = 0; temp != NULL; i++, temp = temp->next)
+    /* loop through and start comparing values */
+    else
     {
-        if (temp->n == number)
+        for (temp = *head; temp->next && temp->next->n < number; temp = temp->next);
         {
-            hold = temp->next;
-            temp->next = newb;
-            newb->next = hold;
-            return newb;
-
-        }
-        if (temp->n > number)
-        {
+            /* add to end */
             if (temp->next == NULL)
             {
                 temp->next = newb;
                 newb->next = NULL;
                 return newb;
             }
-            else
+            /* if they are equal */
+            else if (temp->next->n == number)
             {
-                hold = temp->next;
+                newb->next = temp->next;
                 temp->next = newb;
-                newb->next = hold;
+                return newb;
+
+            }
+            /* add new number before big numb */
+            else if (temp->next->n > number)
+            {
+                newb->next = temp->next;
+                temp->next = newb;
                 return newb;
             }
         }

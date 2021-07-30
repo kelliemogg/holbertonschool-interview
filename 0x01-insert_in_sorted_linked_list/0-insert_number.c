@@ -26,9 +26,23 @@ listint_t *insert_node(listint_t **head, int number)
         *head = newb;
         return newb;
     }
-    /* loop through and start comparing values */
+    if (*head == NULL)
+    {
+        *head = newb;
+        newb->next = NULL;
+        return newb;
+    }
+        /* loop through and start comparing values */
     for (i = 0; temp != NULL; i++, temp = temp->next)
     {
+        if (temp->n == number)
+        {
+            hold = temp->next;
+            temp->next = newb;
+            newb->next = hold;
+            return newb;
+
+        }
         if (temp->n > number)
         {
             if (temp->next == NULL)

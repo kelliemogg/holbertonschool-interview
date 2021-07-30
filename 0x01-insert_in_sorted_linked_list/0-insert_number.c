@@ -21,16 +21,16 @@ listint_t *insert_node(listint_t **head, int number)
         return (NULL);
     }
     newb->n = number;
+    /* empty list */
+    if (*head == NULL)
+    {
+        *head = newb;
+        return newb;
+    }
     /* add node to the beginning */
     if (number < temp->n)
     {
         newb->next = temp;
-        *head = newb;
-        return newb;
-    }
-    /* empty list */
-    if (*head == NULL)
-    {
         *head = newb;
         return newb;
     }

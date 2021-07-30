@@ -10,7 +10,7 @@
 listint_t *insert_node(listint_t **head, int number)
 {
     int i;
-    listint_t *newb, *temp = *head;
+    listint_t *newb, *temp = *head, *hold;
 
     /* making space */
     newb = malloc(sizeof(listint_t));
@@ -20,21 +20,30 @@ listint_t *insert_node(listint_t **head, int number)
         return (NULL);
     }
     newb->n = number;
+    if (number < temp->n)
+    {
+        newb->next = head;
+        *head = newb;
+        return newb;
+    }
     /* loop through and start comparing values */
     for (i = 0; temp != NULL; i++, temp = temp->next)
     {
-        if (number < temp->n && temp->next != NULL)
+        if (temp->n > number)
         {
-            listint_t *bigger = temp->next;
-            temp->next = newb;
-            newb->next = bigger;
-            return newb;
-        }
-        else if (temp->n <= number && temp->next == NULL)
-        {
-            temp->next = newb;
-            newb->next = NULL;
-            return newb;
+            if (temp->next == NULL)
+            {
+                temp->next = newb;
+                newb->next = NULL;
+                return newb;
+            }
+            else
+            {
+                hold = temp->next;
+                temp->next = newb;
+                newb->next = hold;
+                return newb;
+            }
         }
     }
     free (newb);

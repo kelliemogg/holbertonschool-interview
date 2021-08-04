@@ -16,10 +16,11 @@ heap_t *heap_insert(heap_t **root, int value)
 	/* null checks */
 	if (!newb || !value)
 		return (NULL);
-
+	/* set value to new node */
+	newb->n = value;
+	
 	if (*root == NULL)
 	{
-		newb->n = value;
 		*root = newb;
 	}
 	return (newb);

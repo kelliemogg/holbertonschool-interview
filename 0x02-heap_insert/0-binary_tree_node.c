@@ -15,13 +15,14 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 
 	newb = malloc(sizeof(binary_tree_t));
 
-	if (!value || !newb)
+	if (!newb || !value)
 		return (NULL);
 
 	/* setting value to the new node */
 	newb->n = value;
 	/* setting *parent as parent to new node */
 	newb->parent = parent;
+	/* accounting for single node tree */
 	newb->left = NULL;
 	newb->right = NULL;
 	return (newb);

@@ -9,18 +9,18 @@
 
 heap_t *heap_insert(heap_t **root, int value)
 {
-    binary_tree_t *newb;
+	heap_t *newb;
 
-    newb = malloc(sizeof(heap_t));
+	newb = malloc(sizeof(heap_t));
 
-    /* null checks */
-    if (!newb || !value)
-        return (NULL);
+	/* null checks */
+	if (!newb || !value)
+		return (NULL);
 
-    /* adding value to newb node */
-    newb->n = value;
-
-    if (*root == NULL)
-        *root = newb;
-    return (newb);
+	if (*root == NULL)
+	{
+		newb->n = value;
+		*root = newb;
+	}
+	return (newb);
 }

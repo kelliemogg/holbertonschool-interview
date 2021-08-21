@@ -54,10 +54,10 @@ int stable_grid(int gridSum[3][3])
         for (b = 0; b < 3; b++)
         {
             if (gridSum[a][b] > 3)
-                return 0;
+                return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 static void print_grid(int grid[3][3])

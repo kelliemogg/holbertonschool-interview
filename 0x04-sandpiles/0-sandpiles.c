@@ -12,19 +12,18 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
     /* indexes for each grid */
     int a, b;
     int stable;
-    int gridSum[3][3];
 
     for (a = 0; a < 3; a++)
     {
         for (b = 0; b < 3; b++)
         {
-            gridSum[a][b] = grid1[a][b] + grid2[a][b];
+            grid1[a][b] = grid1[a][b] + grid2[a][b];
         }
     }
-    stable = stable_grid(gridSum);
+    stable = stable_grid(grid1);
     if (stable == 1)
     {
-        print_grid(gridSum);
+        print_grid(grid1);
     }
     else
     {
@@ -32,8 +31,8 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
         {
             for (b = 0; b < 3; b++)
             {
-                if (gridSum[a][b] >= 4)
-                    gridSum[a][b] -= 4;
+                if (grid1[a][b] >= 4)
+                    grid1[a][b] -= 4;
             }
         }
     }

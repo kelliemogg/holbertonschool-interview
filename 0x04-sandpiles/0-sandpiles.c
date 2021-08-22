@@ -35,7 +35,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 */
 void *topple(int grid1[3][3])
 {
-	int i = 0, j = 0, newGrid[3][3];
+	int i, j, newGrid[3][3];
 
 	for (i = 0; i < 3; i++)
 	{

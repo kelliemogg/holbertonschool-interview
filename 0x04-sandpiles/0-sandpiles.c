@@ -42,7 +42,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		if (stable == 0)
 		{
 			topple(grid1);
-			print_grid(grid1);
+			/* print_grid(grid1); */
 		}
 	}
 }
@@ -110,7 +110,10 @@ int stable_grid(int grid[3][3])
 		for (j = 0; j < 3; j++)
 		{
 			if (grid[i][j] > 3)
+			{
+				print_grid(grid);
 				return (0);
+			}
 		}
 	}
 	return (1);

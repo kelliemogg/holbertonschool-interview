@@ -50,9 +50,9 @@ void *topple(int grid1[3][3])
 		}
 	}
 	print_grid(grid1);
-	for (int i = 0; i < 3; i++)
+	for (i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (j = 0; j < 3; j++)
 		{
 			newGrid[i][j] = grid1[i][j];
 			if (grid1[i][j] >= 4)

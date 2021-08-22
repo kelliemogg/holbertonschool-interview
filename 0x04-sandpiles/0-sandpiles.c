@@ -21,52 +21,60 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		}
 	}
 	stable = stable_grid(grid1);
-	while (stable == 1)
+	/* zero is NOT stable */
+	if (stable == 0)
 	{
-		int top = 0, down = 0, left = 0, right = 0;
-		int processAgain = 0;
-		for (i = 0; i < 3; i++)
+		topple(grid1);
+	}
+}
+
+/**
+* topple - topples the sand
+* @grid1: grid to be toppled
+* Return: void
+*/
+void *topple(int grid1[3][3])
+{
+	int i = 0, j = 0, newGrid[3][3];
+
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
 		{
-			for (j = 0; j < 3; j++)
+			newGrid[i][j] = 0;
+			int num = grid1[i][j];
+			if (num < 4)
 			{
-				if (grid1[i][j] > 3)
-				{
-					if (i - 1 >= 0)
-					{
-						top = 1;
-						grid1[i - 1][j] += 1;
-						if (grid1[i - 1][j] >= 4)
-							processAgain = 1;
-					}
-					if (i + 1 < 3)
-					{
-						down = 1;
-						grid1[i + 1][j] += 1;
-						if (grid1[i + 1][j] >= 4)
-							processAgain = 1;
-					}
-					if (j - 1 >= 0)
-					{
-						left = 1;
-						grid1[i][j - 1] += 1;
-						if (grid1[i][j - 1] >= 4)
-							processAgain = 1;
-					}
-					if (j + 1 < 3)
-					{
-						right = 1;
-						grid1[i][j + 1] += 1;
-						if (grid1[i][j + 1] >= 4)
-							processAgain = 1;
-					}
-				grid1[i][j] -= (top + down + left + right);
-				if (grid1[i][j] >= 4)
-					processAgain = 1;
-				}
+				newGrid[i][j] = grid1[i][j];
 			}
 		}
-		print_grid(grid1);
 	}
+	print_grid(grid1);
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			newGrid[i][j] = grid1[i][j];
+			if (grid1[i][j] >= 4)
+				newGrid[i][j] -= 4;
+			if (i + 1 < 3)
+				newGrid[i + 1][j]++;
+			if (i - 1 >= 0)
+				newGrid[i - 1][j]++;
+			if (j + 1 < 3)
+				newGrid[i][j + 1]++;
+			if (j - 1 >= 0)
+				newGrid[i][j - 1]++;
+		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			grid1[i][j] = newGrid[i][j];
+		}
+	}
+	return(grid1);
 }
 
 /**
@@ -84,10 +92,10 @@ int stable_grid(int grid[3][3])
 		for (j = 0; j < 3; j++)
 		{
 			if (grid[i][j] > 3)
-				return (1);
+				return (0);
 		}
 	}
-	return (0);
+	return (1);
 }
 
 /**

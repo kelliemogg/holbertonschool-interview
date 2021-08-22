@@ -73,7 +73,7 @@ void *topple(int grid1[3][3])
 			grid1[i][j] = newGrid[i][j];
 		}
 	}
-	return(grid1);
+	return (grid1);
 }
 
 /**

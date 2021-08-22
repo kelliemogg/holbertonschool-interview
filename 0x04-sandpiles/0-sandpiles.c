@@ -20,7 +20,6 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 			grid1[i][j] = grid1[i][j] + grid2[i][j];
 		}
 	}
-	print_grid(grid1);
 	stable = stable_grid(grid1);
 	/* zero is NOT stable */
 	while (stable == 0)

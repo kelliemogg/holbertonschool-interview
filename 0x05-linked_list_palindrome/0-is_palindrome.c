@@ -14,7 +14,7 @@ int is_palindrome(listint_t **head)
 	listint_t *midnode = NULL;
 	int res = 0;
 
-	if (!head)
+	if (fast == NULL)
 	{
 		return (1);
 	}

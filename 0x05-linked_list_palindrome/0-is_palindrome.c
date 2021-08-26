@@ -18,6 +18,10 @@ int is_palindrome(listint_t **head)
 	{
 		return (1);
 	}
+	if (fast->next == NULL)
+	{
+		return (1);
+	}
 	if (head != NULL)
 	{
 		while (fast != NULL && fast->next != NULL)

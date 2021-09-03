@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ sorts through logs """
 import sys
+from sys import stdin
 import fileinput
 from collections import defaultdict
 
@@ -21,13 +22,13 @@ if __name__ == '__main__':
 
     try:
         for line in fileinput.input():
-            args = line.split(" ")
-            code = args[len(args) - 2]
-            if args != 9:
+            args = line.split()
+            e_code = args[len(args) - 2]
+            if len(args) != 9:
                 pass
-            if code in status_code.keys():
-                status_code[code] += 1
-            count = count + 1
+            if e_code in status_code.keys():
+                status_code[e_code] += 1
+                count = count + 1
             f_size = args[len(args) - 1]
             if f_size.isdigit():
                 total_size += int(f_size)
@@ -37,7 +38,7 @@ if __name__ == '__main__':
                 for item in sorted(status_code.items()):
                     if item[1] != 0:
                         print("{}: {}".format(item[0], item[1]))
-            print("File size: {}".format(filesize))
+        print("File size: {}".format(total_size))
         for item in sorted(status_code.items()):
             if item[1] != 0:
                 print("{}: {}".format(item[0], item[1]))            

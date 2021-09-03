@@ -41,7 +41,7 @@ if __name__ == '__main__':
         print("File size: {}".format(total_size))
         for item in sorted(status_code.items()):
             if item[1] != 0:
-                print("{}: {}".format(item[0], item[1]))            
+                print("{}: {}".format(item[0], item[1]))
     except KeyboardInterrupt as err:
         print("File size: {}".format(total_size))
         for item in sorted(status_code.items()):

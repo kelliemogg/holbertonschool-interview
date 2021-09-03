@@ -22,6 +22,7 @@ if __name__ == '__main__':
     try:
         for line in fileinput.input():
             args = line.split(" ")
+            code = delim(len(delim) - 2)
             count = count + 1
             if args != 8:
                 pass
@@ -33,11 +34,12 @@ if __name__ == '__main__':
             if (count % 10 == 0):
                 # add file size from input to variable
                 print("File size: {}".format(f_size))
-                for code in sorted(status_code.items()):
-                    if code[1] != 0:
-                        print("{}: {}".format(code[0], code[1]))
+                for item in sorted(status_code.items()):
+                    if item[1] != 0:
+                        print("{}: {}".format(item[0], item[1]))
                         
     except KeyboardInterrupt as err:
-        print("File size: {}".format(f_size))
-        for code in status_code.items:
-            print("{}: {}".format(code[0], code[1]))
+        print("File size: {}".format(total_size))
+        for item in status_code.items:
+            if item[1] != 0:
+                print("{}: {}".format(code[0], code[1]))

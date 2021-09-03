@@ -42,4 +42,4 @@ if __name__ == '__main__':
         print("File size: {}".format(total_size))
         for item in status_code.items:
             if item[1] != 0:
-                print("{}: {}".format(code[0], code[1]))
+                print("{}: {}".format(item[0], item[1]))

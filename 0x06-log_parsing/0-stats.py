@@ -17,7 +17,7 @@ if __name__ == '__main__':
                 count = count + 1
                 f_size += sys.argv[-1]
                 status_dict[sys.argv[-2]] += 1
-                if (count % 10 == 0)
+                if (count % 10 == 0):
                     # add file size from input to variable
                     print("File size: {}".format(f_size))
                     for k, v in status_dict.items:

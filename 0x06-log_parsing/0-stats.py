@@ -3,7 +3,7 @@
 import sys
 from collections import defaultdict
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     f_size = 0
     count = 0
     status_dict = defaultdict(int)

@@ -40,6 +40,6 @@ if __name__ == '__main__':
                         
     except KeyboardInterrupt as err:
         print("File size: {}".format(total_size))
-        for item in status_code.items:
+        for item in sorted(status_code.items()):
             if item[1] != 0:
                 print("{}: {}".format(item[0], item[1]))

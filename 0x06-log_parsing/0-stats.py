@@ -23,12 +23,12 @@ if __name__ == '__main__':
         for line in fileinput.input():
             args = line.split(" ")
             code = args[7]
-            if args != 8:
+            if args != 9:
                 pass
             if code in status_code.keys():
                 status_code[code] += 1
             count = count + 1
-            f_size = args[len(args) - 1]
+            f_size = args[8]
             if f_size.isdigit():
                 total_size += int(f_size)
             if (count % 10 == 0):

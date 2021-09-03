@@ -33,7 +33,7 @@ if __name__ == '__main__':
                 total_size += int(f_size)
             if (count % 10 == 0):
                 # add file size from input to variable
-                print("File size: {}".format(f_size))
+                print("File size: {}".format(total_size))
                 for item in sorted(status_code.items()):
                     if item[1] != 0:
                         print("{}: {}".format(item[0], item[1]))

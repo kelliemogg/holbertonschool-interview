@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" sorts through logs """
 import sys
 from collections import defaultdict
 

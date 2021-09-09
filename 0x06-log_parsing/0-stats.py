@@ -1,35 +1,49 @@
 #!/usr/bin/python3
+""" sorts through logs """
 import sys
+from sys import stdin
+import fileinput
 from collections import defaultdict
 
-if __name__ == "__main__":
-    matchLine = re.match('.+ .+ \d+', line)
+if __name__ == '__main__':
     f_size = 0
-    status_dict = defaultdict(int)
+    total_size = 0
+    count = 0
+    status_code = {
+        '200': 0,
+        '301': 0,
+        '400': 0,
+        '401': 0,
+        '403': 0,
+        '404': 0,
+        '405': 0,
+        '500': 0
+    }
 
-    for line in sys.stdin:
-        try:
-            if matchLine:
+    try:
+        for line in fileinput.input():
+            args = line.split()
+            e_code = args[len(args) - 2]
+            if len(args) != 9:
+                pass
+            if e_code in status_code.keys():
+                status_code[e_code] += 1
                 count = count + 1
-            while (count < 10):
-                f_size += sys.argv[-1]
-                for status_code in line:
-                        status_dict[sys.argv[-2]] += 1
-
-            else:
+            f_size = args[len(args) - 1]
+            if f_size.isdigit():
+                total_size += int(f_size)
+            if (count % 10 == 0):
                 # add file size from input to variable
-                print("File size: {}".format(f_size))
-                for k, v in status_dict.items:
-                    print("{}: {}".format(k, v))
-                    
-        except KeyboardInterrupt as err:
-            print("File size: {}".format(f_size))
-            for k, v in status_dict.items:
-                print("{}: {}".format(k, v))
-
-            
-
-
-
-
-    f.closed
+                print("File size: {}".format(total_size))
+                for item in sorted(status_code.items()):
+                    if item[1] != 0:
+                        print("{}: {}".format(item[0], item[1]))
+        print("File size: {}".format(total_size))
+        for item in sorted(status_code.items()):
+            if item[1] != 0:
+                print("{}: {}".format(item[0], item[1]))
+    except KeyboardInterrupt as err:
+        print("File size: {}".format(total_size))
+        for item in sorted(status_code.items()):
+            if item[1] != 0:
+                print("{}: {}".format(item[0], item[1]))

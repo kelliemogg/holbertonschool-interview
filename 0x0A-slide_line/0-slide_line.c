@@ -38,9 +38,9 @@ int slide_line(int *line, size_t size, int direction)
 
 int slide_left(int *line, size_t size)
 {
-    int x, check;
+    int x, check = 0;
 
-	for (x = 0; x < size; x++) 
+	for (x = 0; x < (int)size; x++) 
     {
 		if (line[x] && line[x] == line[check])
         {
@@ -72,9 +72,9 @@ int slide_left(int *line, size_t size)
 
 int slide_right(int *line, int size)
 {
-	int x, check;
+	int x, check = 0;
 
-	for (x = size - 2; x >= 0; x--)
+	for (x = (int)size - 2; x >= 0; x--)
 	{
 		if (line[x] && line[x] == line[check])
         {

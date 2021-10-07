@@ -7,6 +7,5 @@
 
 void menger(int level);
 void five_menger();
-void six_menger();
 
 #endif

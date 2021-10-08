@@ -40,7 +40,7 @@ int slide_left(int *line, size_t size)
 {
     int x, check = 0;
 
-	for (x = 0; x < (int)size; x++) 
+	for (x = 1; x < (int)size; x++) 
     {
 		if (line[x] && line[x] == line[check])
         {

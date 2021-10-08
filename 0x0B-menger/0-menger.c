@@ -379,7 +379,7 @@ void five_menger()
 }
 
 
-/*
+/**
 * six_menger - level 6
 *
 * Return: void

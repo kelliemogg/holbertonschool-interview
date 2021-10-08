@@ -8,7 +8,5 @@
 #include <stdio.h>
 
 int slide_line(int *line, size_t size, int direction);
-int slide_right(int *line, size_t size);
-int slide_left(int *line, size_t size);
 
 #endif /* SLIDE_LINE_H */

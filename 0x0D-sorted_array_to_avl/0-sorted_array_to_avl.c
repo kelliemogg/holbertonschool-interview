@@ -17,25 +17,22 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
     if (array == NULL || size == 0)
         return (NULL);
     middle = find_middle(0, size - 1);
-	left_mid = find_middle(0, middle - 1);
-	right_mid = find_middle(middle + 1, size - 1);
 
 	for (i = 0; i < (int)size; i++)
 	{
-		if (i == middle)
-		{
-		    root = binary_tree_node(root, array[middle]);
-			if (left_mid != -1)
-			{
-				left = binary_tree_node(NULL, array[left_mid]);
-				root->left = left;
-			}
-			if (right_mid != -1)
-			{
-				right = binary_tree_node(NULL, array[right_mid]);
-				root->right = right;
-			}
-		}
+		root = binary_tree_node(root, array[middle]);
+	}
+	left_mid = find_middle(0, middle - 1);
+	right_mid = find_middle(middle + 1, size - 1);
+	if (left_mid != -1)
+	{
+		left = binary_tree_node(root, array[left_mid]);
+		root->left = left;
+	}
+	if (right_mid != -1)
+	{
+		right = binary_tree_node(root, array[right_mid]);
+		root->right = right;
 	}	
     if (root == NULL)
         return (NULL);

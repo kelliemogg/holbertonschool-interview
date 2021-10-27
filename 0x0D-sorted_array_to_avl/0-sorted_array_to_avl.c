@@ -9,7 +9,7 @@
 
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-    int middle = 0, left_mid = 0, right_mid = 0;
+    int i = 0, middle = 0, left_mid = 0, right_mid = 0;
     avl_t *root = NULL;
 	avl_t *left = NULL;
 	avl_t *right = NULL;
@@ -17,7 +17,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
     if (array == NULL || size == 0)
         return (NULL);
     middle = find_middle(0, size - 1);
-	for (int i = 0; i < (int)size; i++)
+	for (i = 0; i < (int)size; i++)
 	{
 		if (i == middle)
 		{

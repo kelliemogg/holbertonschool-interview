@@ -9,15 +9,15 @@
 
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
+    int middle = 0;
     avl_t *root = NULL;
 
     if (array == NULL || size == 0)
         return (NULL);
-    
-    root = binary_tree_node(NULL, array[0]);
+    middle = find_middle(0, size - 1);
+    root = binary_tree_node(root, array[middle]);
     if (root == NULL)
         return (NULL);
-
     return (root);
 }
 
@@ -28,17 +28,51 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
  * Return: pointer to the created node
  */
 
-avl_t *binary_tree_node(binary_tree_t *parent, int data)
+avl_t *binary_tree_node(avl_t *root, int data)
 {
-    avl_t *node = malloc(sizeof(avl_t));
+    avl_t *parent = NULL, *current;
+    avl_t *add_node = malloc(sizeof(avl_t));
 
-    if (node == NULL)
+    if (add_node == NULL)
         return (NULL);
 
-    node->n = data;
-    node->parent = parent;
-    node->left = NULL;
-    node->right = NULL;
+    add_node->parent = NULL;
+    add_node->left = NULL;
+    add_node->right = NULL;
+    add_node->n = data;
+    if (parent == NULL)
+        return (add_node);
+    current = root;
+    while (current != NULL)
+    {
+        parent = current;
+        if (data < current->n)
+            current = current->left;
+        else
+            current = current->right;
+    }
+    if (data < parent->n)
+        parent->left = add_node;
+    else
+        parent->right = add_node;
+    add_node->parent = parent;
+    return (add_node);
+}
+/**
+ * find_middle - finds the middle of an array
+ * @start: start of the array
+ * @end: end of the array
+ * Return: the middle of the array
+ */
 
-    return (node);
+int find_middle(int start, int end)
+{
+    int mid = 0;
+
+    if (start > end)
+        return (-1);
+    if (start == end)
+        return (start);
+    mid = (start + end) / 2;
+        return (mid);
 }

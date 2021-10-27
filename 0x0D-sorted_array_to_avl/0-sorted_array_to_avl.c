@@ -9,19 +9,14 @@
 
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-    int middle = 0;
     avl_t *root = NULL;
 
     if (array == NULL || size == 0)
         return (NULL);
     
-    printf("%d\n", middle);
-    root = binary_tree_node(middle);
+    root = binary_tree_node(NULL, array[0]);
     if (root == NULL)
         return (NULL);
-
-    root->left = sorted_array_to_avl(array + 1, size - 1);
-    root->right = sorted_array_to_avl(array + 1, size - 1);
 
     return (root);
 }
@@ -33,7 +28,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
  * Return: pointer to the created node
  */
 
-avl_t *binary_tree_node(int data)
+avl_t *binary_tree_node(binary_tree_t *parent, int data)
 {
     avl_t *node = malloc(sizeof(avl_t));
 
@@ -41,6 +36,7 @@ avl_t *binary_tree_node(int data)
         return (NULL);
 
     node->n = data;
+    node->parent = parent;
     node->left = NULL;
     node->right = NULL;
 

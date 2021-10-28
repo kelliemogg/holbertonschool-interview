@@ -9,17 +9,18 @@
 
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-    if (array == NULL || size == 0)
-        return (NULL);
-		
+	if (array == NULL || size == 0)
+		return (NULL);
 
 	return (binary_tree_node(NULL, 0, size - 1, array));
 }
 
 /**
  * binary_tree_node - creates a binary tree node
- * 
- * @data: data to store in the node
+ * @root: pointer to the root node of the tree
+ * @first: index of the first element of the array
+ * @last: index of the last element of the array
+ * @array: array of integers
  * Return: pointer to the created node
  */
 
@@ -30,7 +31,7 @@ avl_t *binary_tree_node(avl_t *root, int first, int last, int *array)
 	if (first > last)
 		return (NULL);
 	mid = (first + last) / 2;
-	
+
 	root = binary_tree_insert(root, array[mid]);
 	if (root == NULL)
 		return (NULL);
@@ -38,7 +39,12 @@ avl_t *binary_tree_node(avl_t *root, int first, int last, int *array)
 	root->right = binary_tree_node(root, mid + 1, last, array);
 	return (root);
 }
-
+/**
+ * binary_tree_insert - inserts a value into a binary tree
+ * @root: pointer to the root node of the tree
+ * @data: value to be inserted
+ * Return: pointer to the root node of the tree
+ */
 avl_t *binary_tree_insert(avl_t *root, int data)
 {
 	avl_t *new_node = NULL;

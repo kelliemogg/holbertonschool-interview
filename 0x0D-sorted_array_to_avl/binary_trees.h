@@ -26,7 +26,7 @@ typedef struct binary_tree_s avl_t;
 
 avl_t *sorted_array_to_avl(int *array, size_t size);
 void binary_tree_print(const binary_tree_t *tree);
-avl_t *binary_tree_node(avl_t *parent, int data);
-int find_middle(int start, int end);
+avl_t *binary_tree_insert(avl_t *root, int data);
+avl_t *binary_tree_node(avl_t *root, int first, int last, int *array);
 
 #endif

@@ -14,7 +14,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 
 	return (binary_tree_node(NULL, 0, size - 1, array));
 }
- 
+
 /**
  * binary_tree_node - creates a binary tree node
  * @root: pointer to the root node of the tree

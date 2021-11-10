@@ -10,19 +10,19 @@ function printCharacters(movieID) {
     if (error) {
       console.log(error);
     } else {
-      const data = JSON.parse(body);
-      const characters = data.characters;
-      for (const i = 0; i < characters.length; i++) {
-        const character = characters[i];
-        request(character, function(error, response, body) {
-          if (error) {
-            console.log(error);
-          } else {
-            const data = JSON.parse(body);
-            console.log(data.name);
-          }
-        });
-      }
-    }
-  });
+        const data = JSON.parse(body);
+        const characters = data.characters;
+        for (let i = 0; i < characters.length; i++) {
+            const url = characters[i];
+            request(url, function(error, response, body) {
+            if (error) {
+                console.log(error);
+            } else {
+                const data = JSON.parse(body);
+                console.log(data.name);
+            }
+            });
+        }
+        }
+    });
 }

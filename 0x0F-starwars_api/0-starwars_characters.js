@@ -10,6 +10,7 @@ request(url, function (error, response, body) {
         console.log(error);
     }
     const characters = JSON.parse(body).characters;
+    const listCharacters = {};
 
     characters.forEach(function (character) {
         request(character, function (error, response, body) {
@@ -17,10 +18,9 @@ request(url, function (error, response, body) {
                 console.log(error);
             }
             const charName = JSON.parse(body).name;
-            const listCharacters = {};
-            listCharacters[charName] = character;
+            listCharacters[character] = charName;
             if (Object.values(listCharacters).length === characters.length) {
-                characters.forEach(function (character) {
+                characters.forEach(character => {
                     console.log(listCharacters[character]);
                 });
             }

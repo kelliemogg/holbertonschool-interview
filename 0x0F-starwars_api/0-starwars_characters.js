@@ -1,8 +1,8 @@
 #!/usr/bin/node
 
 const request = require('request');
-const args = process.argv.slice(2);
-const url = `https://swapi.co/api/films/${args}/`;
+const args = process.argv;
+const url = `https://swapi.co/api/films/${args[2]}/`;
 
 
 request(url, function (error, response, body) {

@@ -3,6 +3,8 @@
 takes a list of non-negative integers (representing walls) with unit width 1
 and returns the amount of water that can be trapped in the walls
 """
+
+
 def rain(walls):
     reserve = 0
 
@@ -21,4 +23,3 @@ def rain(walls):
         """ calculate the water trapped """
         reserve += min(left_max, right_max) - walls[i]
     return reserve
-   

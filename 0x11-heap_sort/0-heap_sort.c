@@ -1,6 +1,6 @@
 #include "sort.h"
 
-/*
+/**
  * heap_sort - heap sort an array of integers using the heap sort algoirthm
  * description: sift down works on the path from the root to a leaf node
  * at each state we need to compare the children to find which is larger,
@@ -30,7 +30,7 @@ void heap_sort(int *array, size_t size)
 	}
 }
 
-/*
+/**
  * sift_down - sift down the array to find the largest value
  * description: sift down works on the path from the root to a leaf node
  * at each state we need to compare the children to find which is larger,

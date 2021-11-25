@@ -38,6 +38,7 @@ void heap_sort(int *array, size_t size)
  * @array: array to sort
  * @i: index of the parent node
  * @size: size of array
+ * @temp_size: size of array
  */
 void sift_down(int *array, size_t i, size_t size, size_t temp_size)
 {
@@ -56,6 +57,7 @@ void sift_down(int *array, size_t i, size_t size, size_t temp_size)
 	if (largest != i)
 	{
 		int temp = array[i];
+
 		array[i] = array[largest];
 		array[largest] = temp;
 		print_array(array, temp_size);

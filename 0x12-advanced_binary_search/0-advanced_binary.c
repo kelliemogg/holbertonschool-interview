@@ -40,7 +40,6 @@ int advanced_binary(int *array, size_t size, int value)
 * @end: end of array
 * Return: void
 */
-
 void print_array(int *array, size_t start, size_t end)
 {
 	printf("Searching in array: ");

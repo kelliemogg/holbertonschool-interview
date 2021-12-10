@@ -30,20 +30,31 @@ def count_words(subreddit, word_list):
                                 params=params).json()
     except ValueError:
         return
+    """ adding all keywords to a dictionary """
+    word_dict = {}
+    for word in word_list:
+        if word.lower() not in word_dict:
+            word_dict[word.lower()] = 0
+        if word.lower() in word_dict:
+            word_dict[word.lower()] += 1
+    """ delimiate words in the titles """
+    titles = []
+    for post in response['data']['children']:
+        titles.append(post['data']['title'].split())
+    titles = [item for sublist in titles for item in sublist]
+    """ adding keywords to the titles """
+    for title in titles:
+        if title.lower() in word_dict:
+            word_dict[title.lower()] += 1
+    """ sorting the dictionary in alphabetical order """
+    word_dict = OrderedDict(sorted(word_dict.items(), key=lambda t: t[0]))
+    """ sorting the dictionary in ascending order """
+    word_dict = OrderedDict(sorted(word_dict.items(), key=lambda t: t[1],
+                                      reverse=True))
+    """ printing the dictionary """
+    for key, value in word_dict.items():
+        if value != 0:
+            print('{}: {}'.format(key, value))
+    return
 
-    a_dict = {}
-    for i in response['data']['children']:
-        title = i['data']['title']
-        for word in word_list:
-            if word.lower() in title.lower():
-                if word in a_dict:
-                    a_dict[word] += 1
-                else:
-                    a_dict[word] = 1
-    if a_dict:
-        ordered_dict = OrderedDict(sorted(a_dict.items(), key=lambda t: (-t[1], t[0])))
-        for key, value in sorted(a_dict.items(), key=lambda t: (-t[1], t[0])):
-            if value != 0:
-                print('{}: {}'.format(key, value))
-    else:
-        return
+    return count_words(subreddit, word_list)

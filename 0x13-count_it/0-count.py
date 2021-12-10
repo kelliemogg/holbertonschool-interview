@@ -36,7 +36,7 @@ def count_words(subreddit, word_list, key_dict={}, count=0, after=None):
     except ValueError:
         return None
 
-    if response.status_code == 404:
+    if response.status_code != 200:
         return None
     try:
         response = response.json()
@@ -72,5 +72,5 @@ def count_words(subreddit, word_list, key_dict={}, count=0, after=None):
         return count_words(subreddit, word_list, key_dict, count, after)
     else:
         """ sort the dictionary """
-        for item in sorted(key_dict, key=key_dict.get, reverse=True):
-            print('{}: {}'.format(item, key_dict[item]))
+        for x in sorted(key_dict, key=key_dict.get, reverse=True):
+            print('{}: {}'.format(x, key_dict[x]))

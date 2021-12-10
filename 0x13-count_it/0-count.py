@@ -16,7 +16,7 @@ import requests
 import json
 from collections import OrderedDict
 
-def count_words(subreddit, word_list):
+def count_words(subreddit, word_list, after=None):
     """
     recursive function that queries the Reddit API, parses the title of all
     hot articles, and prints a sorted count of given keywords (case-insensitive,
@@ -24,7 +24,8 @@ def count_words(subreddit, word_list):
     """
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     header = {'User-Agent': 'user'}
-    params = {"show:": "all", "next": "next", "after": None}
+    params = {"show:": "all", "next": "next", "after": after}
+    next_page = None
     try:
         response = requests.get(url, headers=header, allow_redirects=False,
                                 params=params).json()
@@ -46,15 +47,15 @@ def count_words(subreddit, word_list):
     for title in titles:
         if title.lower() in word_dict:
             word_dict[title.lower()] += 1
-    """ sorting the dictionary in alphabetical order """
-    word_dict = OrderedDict(sorted(word_dict.items(), key=lambda t: t[0]))
-    """ sorting the dictionary in ascending order """
-    word_dict = OrderedDict(sorted(word_dict.items(), key=lambda t: t[1],
-                                      reverse=True))
-    """ printing the dictionary """
-    for key, value in word_dict.items():
-        if value != 0:
-            print('{}: {}'.format(key, value))
-    return
-
-    return count_words(subreddit, word_list)
+    """ next page """
+    after = response.get("data").get("after")
+    if after:
+        count_words(subreddit, word_list, after)
+    else:
+        """ sorting the dictionary """
+        word_dict = OrderedDict(sorted(word_dict.items(), key=lambda t: t[1],
+                                       reverse=True))
+        for word, count in word_dict.items():
+            print("{}: {}".format(word, count))
+        return
+        

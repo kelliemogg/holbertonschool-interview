@@ -14,6 +14,7 @@ the same for separate keywords, they should be sorted alphabetically.
 """
 import requests
 import json
+from collections import OrderedDict
 
 def count_words(subreddit, word_list):
     """
@@ -40,7 +41,9 @@ def count_words(subreddit, word_list):
                 else:
                     a_dict[word] = 1
     if a_dict:
-        for key, value in sorted(a_dict.items(), key=lambda x: (-x[1], x[0])):
-            print("{}: {}".format(key, value))
+        ordered_dict = OrderedDict(sorted(a_dict.items(), key=lambda t: (-t[1], t[0])))
+        for key, value in sorted(a_dict.items(), key=lambda t: (-t[1], t[0])):
+            if value != 0:
+                print('{}: {}'.format(key, value))
     else:
         return

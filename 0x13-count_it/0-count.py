@@ -27,28 +27,34 @@ def count_words(subreddit, word_list, key_dict={}, count=0, after=None):
     params = {"limit": 100, "after": after}
     key_dict = OrderedDict(key_dict)
     try:
-        response = requests.get(url, headers=header, allow_redirects=False,
-                                params=params).json()
+        response = requests.get(url, headers=header, params=params,
+                                allow_redirects=False)
     except ValueError:
-        return
-    """ adding all keywords to a dictionary """
-    """ get data from the response """
-    data = response.get('data')
-    """ get the children """
-    children = data.get('children')
-    """ get the after """
-    after = data.get('after')
+        return None
+
+    if response.status_code == 404:
+        return None
+    try:
+        response = response.json()
+        """ get the data from the response """
+        more_data = response.get('data')
+        """ get the children """
+        children = more_data.get('children')
+        """ get the after """
+        after = more_data.get('after')
+    except ValueError:
+        return None
 
     """ loop through the children """
-    for child in children:
+    for titles in children:
         """ parse the child data """
-        post = (child.get('data')['title']).lower()
+        title = (titles.get('data')['title']).lower()
         """ split words in above request and loop through """
-        for p in post:
+        for i in title.split():
             for word in word_list:
                 word = word.lower()
                 """ if the keyword is in the child title """
-                if p == word:
+                if i == word:
                     """ if the keyword is in the dictionary """
                     if word in key_dict.keys():
                         """ add one to the count """

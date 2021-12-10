@@ -16,7 +16,7 @@ import requests
 import json
 from collections import OrderedDict
 
-def count_words(subreddit, word_list, after=None):
+def count_words(subreddit, word_list, key_dict={}, after=None):
     """
     recursive function that queries the Reddit API, parses the title of all
     hot articles, and prints a sorted count of given keywords (case-insensitive,
@@ -25,37 +25,42 @@ def count_words(subreddit, word_list, after=None):
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     header = {'User-Agent': 'user'}
     params = {"show:": "all", "next": "next", "after": after}
-    next_page = None
+    key_dict = OrderedDict(key_dict)
     try:
         response = requests.get(url, headers=header, allow_redirects=False,
-                                params=params).json()
+                                params=params)
     except ValueError:
         return
     """ adding all keywords to a dictionary """
-    word_dict = {}
-    for word in word_list:
-        if word.lower() not in word_dict:
-            word_dict[word.lower()] = 0
-        if word.lower() in word_dict:
-            word_dict[word.lower()] += 1
-    """ delimiate words in the titles """
-    titles = []
-    for post in response['data']['children']:
-        titles.append(post['data']['title'].split())
-    titles = [item for sublist in titles for item in sublist]
-    """ adding keywords to the titles """
-    for title in titles:
-        if title.lower() in word_dict:
-            word_dict[title.lower()] += 1
-    """ next page """
-    after = response.get("data").get("after")
-    if after:
-        count_words(subreddit, word_list, after)
+    """ get data from the response """
+    data = response.json()
+    """ parse the data and save to variables """
+    data_list = data.get('data')
+    after = data_list.get('after')
+    children = data_list.get('children')
+    """ loop through the children """
+    for child in children:
+        """ parse the child data """
+        child_data = child.get('data')
+        """ parse the child data and save to variables """
+        child_title = child_data.get('title')
+        child_title_lower = child_title.lower()
+        """ loop through the keywords """
+        for word in word_list:
+            """ if the keyword is in the child title """
+            if word in child_title_lower:
+                """ if the keyword is in the dictionary """
+                if word in key_dict:
+                    """ add one to the count """
+                    key_dict[word] += 1
+                else:
+                    """ add the keyword to the dictionary """
+                    key_dict[word] = 1
+    """ if the after is not None """
+    if after is not None:
+        """ call the function again """
+        return count_words(subreddit, word_list, key_dict, after)
     else:
-        """ sorting the dictionary """
-        word_dict = OrderedDict(sorted(word_dict.items(), key=lambda t: t[1],
-                                       reverse=True))
-        for word, count in word_dict.items():
-            print("{}: {}".format(word, count))
-        return
-        
+        """ sort the dictionary """
+        for item in sorted(key_dict, key=key_dict.get, reverse=True):
+            print('{}: {}'.format(item, key_dict[item]))

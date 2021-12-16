@@ -20,6 +20,9 @@ int heap_extract(heap_t **root)
     temp = *root;
     value = temp->n;
     *root = temp->left;
+
+    if (*root)
+        (*root)->parent = NULL;
     free(temp);
     if (*root)
         heapify(*root);
@@ -27,9 +30,10 @@ int heap_extract(heap_t **root)
 }
 
 /**
-* heapify - re-heapify the heap
+* heapify - re-heapify the heap after extracting the root
 * @root: pointer to the root of the heap
-* description: re-heapify the heap
+* description: re-heapify the heap after extracting the root
+* and making the node to the left of the root the new root node
 * Return: void
 */
 void heapify(heap_t *root)
@@ -38,14 +42,18 @@ void heapify(heap_t *root)
 
     while (root->left)
     {
-        if (root->n < root->left->n)
+        if (root->left->n < root->n)
         {
+            if (root->right->n < root->n)
+            {
+                temp = root->left;
+                root->left = root->right;
+                root->right = temp;
+            }
             temp = root->left;
-            root->left = temp->left;
-            temp->left = root;
-            root = temp;
+            root->left = root->right;
+            root->right = temp;
         }
-        else
-            break;
+        root = root->left;
     }
 }

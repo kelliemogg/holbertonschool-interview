@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * struct binary_tree_s - Binary tree node
@@ -25,5 +26,7 @@ typedef struct binary_tree_s heap_t;
 void binary_tree_print(const binary_tree_t *);
 int heap_extract(heap_t **root);
 void heapify(heap_t *root);
+int binary_tree_height(heap_t *root, int height);
+heap_t *helper_heap_extract(heap_t *root, int height, int level);
 
 #endif /* _BINARY_TREES_H_ */

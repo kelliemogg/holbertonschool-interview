@@ -12,12 +12,12 @@ void heapify(heap_t *root)
 	int temp;
 	heap_t *temp_node;
 
-	if (root->left && root->right == NULL)
+	if (root->left == NULL && root->right == NULL)
 		return;
 	temp_node = root->left;
 	if (root->right != NULL && root->right->n > temp_node->n)
 	{
-	temp_node = root->right;
+		temp_node = root->right;
 	}
 
 	if (temp_node->n > root->n)

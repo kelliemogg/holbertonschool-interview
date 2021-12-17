@@ -27,6 +27,6 @@ void binary_tree_print(const binary_tree_t *);
 int heap_extract(heap_t **root);
 void heapify(heap_t *root);
 int binary_tree_height(heap_t *root, int height);
-heap_t *helper_heap_extract(heap_t *root, int height, int level);
+heap_t *last_node(heap_t *root, int height);
 
 #endif /* _BINARY_TREES_H_ */

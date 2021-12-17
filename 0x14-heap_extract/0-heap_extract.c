@@ -12,12 +12,10 @@ void heapify(heap_t *root)
     int temp;
     heap_t *temp_node;
 
-    if (root->left != NULL && root->left->n > root->right->n)
-    {
-        temp_node = root->left;
-    }
-
-    if (root->right != NULL && root->right->n > root->left->n)
+    if (root->left && root->right == NULL)
+        return;
+    temp_node = root->left;
+    if (root->right != NULL && root->right->n > temp_node->n)
     {
         temp_node = root->right;
     }
@@ -39,17 +37,18 @@ void heapify(heap_t *root)
 * Return: the height of the tree
 */
 
-int binary_tree_height(heap_t *root, int height)
+int binary_tree_height(heap_t *root)
 {
     int left, right;
     if (!root)
-        return (height - 1);
-    height++;
-    left = height = binary_tree_height(root->left, height);
-    right = height = binary_tree_height(root->right, height);
+        return (0);
+
+    left = binary_tree_height(root->left);
+    right = binary_tree_height(root->right);
     if (left > right)
-        return (left);
-    return (right);
+        return (left + 1);
+    else
+        return (right + 1);
 }
 
 /**
@@ -61,30 +60,29 @@ int binary_tree_height(heap_t *root, int height)
 */
 int heap_extract(heap_t **root)
 {
-    int value, height;
+    int value;
     heap_t *temp;
 
     if (!root || !*root)
         return (0);
 
-    temp = *root;
-    value = temp->n;
+    value = (*root)->n;
 
-    if (temp->left == NULL && temp->right == NULL)
+    if (binary_tree_height(*root) == 1)
     {
-        free(*root);
+        temp = *root;
         *root = NULL;
-        return (value);
     }
-
-    height = binary_tree_height(temp, 1);
-    temp = last_node(*root, height);
-    (*root)->n = temp->n;
-    if (temp->parent->right == temp)
-        temp->parent->right = NULL;
     else
-        temp->parent->left = NULL;
-    heapify(*root);
+    {
+        temp = last_node(*root);
+        (*root)->n = temp->n;
+        if (temp->parent->right == temp)
+            temp->parent->right = NULL;
+        else
+            temp->parent->left = NULL;
+        heapify(*root);
+    }
     free(temp);
     return (value);
 }
@@ -97,29 +95,23 @@ int heap_extract(heap_t **root)
 * Return: pointer to the last node
 */
 
-heap_t *last_node(heap_t *root, int height)
+heap_t *last_node(heap_t *root)
 {
-    int left, right;
-    heap_t *temp;
+    int left = 0, right = 0;
 
-    if (height == 1)
+    if (root->left == NULL && root->right == NULL)
         return (root);
     if (root->left != NULL)
     {
-        left = binary_tree_height(root->left, 1);
+        left = binary_tree_height(root->left);
     }
     if (root->right != NULL)
     {
-        right = binary_tree_height(root->right, 1);
+        right = binary_tree_height(root->right);
     }
-    if (left > right)
+    if (right == left)
     {
-        temp = last_node(root->left, left);
+        return (last_node(root->right));
     }
-    else
-    {
-        temp = last_node(root->right, right);
-    }
-    return (temp);
+    return(last_node(root->left));
 }
-

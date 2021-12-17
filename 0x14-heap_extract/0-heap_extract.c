@@ -32,7 +32,6 @@ void heapify(heap_t *root)
 /**
 * binary_tree_height - return the height of a binary tree
 * @root: pointer to the root of the tree
-* @height: the height of root node
 * description: return the height of the tree
 * Return: the height of the tree
 */
@@ -40,6 +39,7 @@ void heapify(heap_t *root)
 int binary_tree_height(heap_t *root)
 {
 	int left, right;
+
 	if (!root)
 		return (0);
 
@@ -91,7 +91,6 @@ int heap_extract(heap_t **root)
 /**
 * last_node - find the last node of a tree
 * @root: pointer to the root of the tree
-* @height: the height of the tree
 * description: find the last node of a tree
 * Return: pointer to the last node
 */
@@ -114,5 +113,5 @@ heap_t *last_node(heap_t *root)
 	{
 		return (last_node(root->right));
 	}
-	return(last_node(root->left));
+	return (last_node(root->left));
 }

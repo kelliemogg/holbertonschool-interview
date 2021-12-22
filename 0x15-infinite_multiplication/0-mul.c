@@ -1,9 +1,7 @@
 #include "holberton.h"
 
-/* Infinite multiplication */
-
 /**
-* infinite_mul - multiplies two positive numbers
+* main - multiplies two positive numbers
 * description: mul num1 and num2 and print the result
 * @argc: number of arguments
 * @argv: array of arguments
@@ -12,17 +10,17 @@
 
 int main(int argc, char *argv[])
 {
-    /* check for only two arguments plus program name */
-    if (argc != 3)
-    {
-        print_error();
-    }
-    /* check for positive numbers */
-    if (int_check(argv[1]) == 0 || int_check(argv[2]) == 0)
-    {
-        print_error();
-    }
-    return (0);
+	/* check for only two arguments plus program name */
+	if (argc != 3)
+	{
+		print_error();
+	}
+	/* check for positive numbers */
+	if (int_check(argv[1]) == 0 || int_check(argv[2]) == 0)
+	{
+		print_error();
+	}
+	return (0);
 }
 
 /**
@@ -33,15 +31,15 @@ int main(int argc, char *argv[])
 
 void print_error(void)
 {
-    char error[] = "Error\n";
-    int i = 0;
+	char error[] = "Error\n";
+	int i = 0;
 
-    while (error[i] != '\0')
-    {
-        _putchar(error[i]);
-        i++;
-    }
-    exit(98);
+	while (error[i] != '\0')
+	{
+		_putchar(error[i]);
+		i++;
+	}
+	exit(98);
 }
 
 /**
@@ -53,15 +51,15 @@ void print_error(void)
 
 int int_check(char *num)
 {
-    int i = 0;
+	int i = 0;
 
-    while (num[i] != '\0')
-    {
-        if (num[i] < '0' || num[i] > '9')
-        {
-            return (0);
-        }
-        i++;
-    }
-    return (1);
+	while (num[i] != '\0')
+	{
+		if (num[i] < '0' || num[i] > '9')
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }

@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     {
         print_error();
     }
+    return (0);
 }
 
 /**

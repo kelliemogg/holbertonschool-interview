@@ -12,24 +12,55 @@
 
 int main(int argc, char *argv[])
 {
+    /* check for only two arguments plus program name */
     if (argc != 3)
     {
-        printf("Error\n");
-        exit(98);
+        print_error();
     }
-    if (argv[1] == 0 || argv[2] == 0)
+    /* check for positive numbers */
+    if (int_check(argv[1]) == 0 || int_check(argv[2]) == 0)
     {
-        printf("0\n");
-        exit(0);
+        print_error();
     }
-    if (argv[1][0] == '-' || argv[2][0] == '-')
+}
+
+/**
+* print_error - prints error message
+* description: prints error message
+* Return: void
+*/
+
+void print_error(void)
+{
+    char error[] = "Error\n";
+    int i = 0;
+
+    while (error[i] != '\0')
     {
-        printf("Error\n");
-        exit(99);
+        _putchar(error[i]);
+        i++;
     }
-    int num1 = atoi(argv[1]);
-    int num2 = atoi(argv[2]);
-    int result = num1 * num2;
-    printf("%d\n", result);
-    return (0);
+    exit(98);
+}
+
+/**
+* int_check - checks if each digit is an int
+* description: checks if each digit is an int
+* @num: number to check
+* Return: 1 if true, 0 if false
+*/
+
+int int_check(char *num)
+{
+    int i = 0;
+
+    while (num[i] != '\0')
+    {
+        if (num[i] < '0' || num[i] > '9')
+        {
+            return (0);
+        }
+        i++;
+    }
+    return (1);
 }

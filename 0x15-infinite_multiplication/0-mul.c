@@ -20,7 +20,10 @@ int main(int argc, char *argv[])
 	{
 		print_error();
 	}
-	return (0);
+	if (argv[1] || argv[2] == 0)
+	{
+		_putchar('0');
+	}
 }
 
 /**

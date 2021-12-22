@@ -22,8 +22,9 @@ int main(int argc, char *argv[])
 	}
 	if (argv[1] || argv[2] == 0)
 	{
-		_putchar('0');
+		_putchar ('0');
 	}
+	return (0);
 }
 
 /**

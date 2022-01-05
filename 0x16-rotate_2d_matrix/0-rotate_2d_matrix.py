@@ -17,7 +17,7 @@ def rotate_2d_matrix(matrix):
     """
     output = [[]]
     output = list(zip(*matrix[::-1]))
-    for i in range(len(output)):
-        for j in range(len(output[i])):
-            output[i][j] = output[i][j][::-1]
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            matrix[i][j] = output[i][j]
     return output

@@ -29,12 +29,17 @@ void merge_sort(int *array, size_t size)
         right[j] = array[i];
     
     merge_sort(left, middle);
-    merge_sort(right, size - middle);
-    merge(left, right, size);
+    /* condition depending on the size of the array */
+    if (size % 2 == 0)
+        merge_sort(right, middle);
+    else
+        merge_sort(right, middle + 1);
+    merge(array, left, right, size);
 }
 
 /**
  * merge - merges two sorted arrays into one sorted array
+ * @array: og array
  * @left: array of integers to sort
  * @right: array of integers to sort
  * @size: size of the array
@@ -42,11 +47,10 @@ void merge_sort(int *array, size_t size)
  * 
  */
 
-void merge(int *left, int *right, size_t size)
+void merge(int *array, int *left, int *right, size_t size)
 {
     int *new_array;
     new_array = malloc(sizeof(int) * size);
-
 
     /* merge the two arrays */
     for (int i = 0, j = 0, k = 0; (size_t)i < size; i++)
@@ -63,11 +67,18 @@ void merge(int *left, int *right, size_t size)
         else
             new_array[i] = right[k++];
     }
+    /* copy the new array into the original array */
+    for (int i = 0; (size_t)i < size; i++)
+        array[i] = new_array[i];
     printf("Merging...\n");
     printf("[left]: ");
     print_array(left, size / 2);
     printf("[right]: ");
-    print_array(right, size / 2);
+    /* condition for if right is bigger than left */
+    if (size % 2 == 0)
+        print_array(right, size / 2);
+    else
+        print_array(right, size / 2 + 1);
     printf("[Done]: ");
     print_array(new_array, size);
 }

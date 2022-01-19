@@ -50,10 +50,11 @@ void merge_sort(int *array, size_t size)
 void merge(int *array, int *left, int *right, size_t size)
 {
     int *new_array;
+    int i = 0, j = 0, k = 0;
     new_array = malloc(sizeof(int) * size);
 
     /* merge the two arrays */
-    for (int i = 0, j = 0, k = 0; (size_t)i < size; i++)
+    for (i = 0, j = 0, k = 0; (size_t)i < size; i++)
     {
         if ((size_t)j < size / 2 && (size_t)k < size / 2)
         {
@@ -68,7 +69,7 @@ void merge(int *array, int *left, int *right, size_t size)
             new_array[i] = right[k++];
     }
     /* copy the new array into the original array */
-    for (int i = 0; (size_t)i < size; i++)
+    for (i = 0; (size_t)i < size; i++)
         array[i] = new_array[i];
     printf("Merging...\n");
     printf("[left]: ");

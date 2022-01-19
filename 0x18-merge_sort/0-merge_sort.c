@@ -10,31 +10,44 @@
 
 void merge_sort(int *array, size_t size)
 {
-    size_t middle;
-    int *left, *right;
-    int i = 0, j = 0;
-
     if (size < 2)
         return;
 
-    /* split the array in half, taking sure that the left is smaller than the right */
-    middle = size / 2;
-    left = malloc(sizeof(int) * size / 2);
-    right = malloc(sizeof(int) * size / 2 + 1);
-    /* add the left array to the left */
-    for (i = 0; (size_t)i < middle; i++)
-        left[i] = array[i];
-    /* add the right array to the right */
-    for (i = middle, j = 0; (size_t)i < size; i++, j++)
-        right[j] = array[i];
-    
-    merge_sort(left, middle);
-    /* condition depending on the size of the array */
-    if (size % 2 == 0)
-        merge_sort(right, middle);
-    else
-        merge_sort(right, middle + 1);
-    merge(array, left, right, size);
+    if (!array)
+        return;
+    /* using helper to define indexes */
+    merge_sort_helper(array, 0, size - 1, size);
+}
+
+/**
+ * merge_sort_helper - helper for merge_sort
+ * @array: array to be sorted
+ * @left: left index of array
+ * @right: right index of array
+ * Return: void
+ */
+void merge_sort_helper(int *array, int left, int right, size_t size)
+{
+    int middle;
+    if (left < right)
+    {
+        middle = left + (right - 1) / 2;
+        /* Sort first and second halves */
+        if (size % 2)
+        {
+            merge_sort_helper(array, left, middle, size / 2);
+            merge_sort_helper(array, middle + 1, right, size / 2);
+        }
+        else
+        {
+            merge_sort_helper(array, left, middle, size / 2 + 1);
+            merge_sort_helper(array, middle + 1, right, size / 2 + 1);
+        }
+        printf("Merging...\n");
+        printf("[left]: ");
+        printf("Array = %p\n left = %d\n middle = %d\n right = %d\n", (void *)array, left, middle, right);
+        merge(array, left, middle, right, size);
+    }
 }
 
 /**
@@ -47,39 +60,51 @@ void merge_sort(int *array, size_t size)
  * 
  */
 
-void merge(int *array, int *left, int *right, size_t size)
+void merge(int *array, int left, int middle, int right, size_t size)
 {
+    (void) middle;
     int *new_array;
     int i = 0, j = 0, k = 0;
     new_array = malloc(sizeof(int) * size);
 
+    /*create sub arrays for print function */
+    int n1 = middle - left + 1;
+    int n2 = right - middle;
+    int Left[1024], Right[1024];
+
+    for (i = 0; i < n1; i++)
+    {
+        Left[i] = array[left + i];
+        print_array(Left, size / 2);
+    }
+    printf("[right]: ");
+    for (j = 0; j < n2; j++)
+    {
+        Right[j] = array[middle + 1 + j];
+        if (size % 2 == 0)
+            print_array(Right, size / 2);
+        else
+            print_array(Right, size / 2 + 1);
+    }
     /* merge the two arrays */
-    for (i = 0, j = 0, k = 0; (size_t)i < size; i++)
+     for (i = 0, j = 0, k = 0; (size_t)i < size; i++)
     {
         if ((size_t)j < size / 2 && (size_t)k < size / 2)
         {
-            if (left[j] < right[k])
-                new_array[i] = left[j++];
+            if (Left[j] < Right[k])
+                new_array[i] = Left[j++];
             else
-                new_array[i] = right[k++];
+                new_array[i] = Right[k++];
         }
         else if ((size_t)j < size / 2)
-            new_array[i] = left[j++];
+            new_array[i] = Left[j++];
         else
-            new_array[i] = right[k++];
+            new_array[i] = Right[k++];
     }
-    /* copy the new array into the original array */
     for (i = 0; (size_t)i < size; i++)
+    {
         array[i] = new_array[i];
-    printf("Merging...\n");
-    printf("[left]: ");
-    print_array(left, size / 2);
-    printf("[right]: ");
-    /* condition for if right is bigger than left */
-    if (size % 2 == 0)
-        print_array(right, size / 2);
-    else
-        print_array(right, size / 2 + 1);
+    }
     printf("[Done]: ");
     print_array(new_array, size);
     free(new_array);

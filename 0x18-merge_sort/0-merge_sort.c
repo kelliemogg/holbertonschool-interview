@@ -82,4 +82,5 @@ void merge(int *array, int *left, int *right, size_t size)
         print_array(right, size / 2 + 1);
     printf("[Done]: ");
     print_array(new_array, size);
+    free(new_array);
 }

@@ -6,4 +6,4 @@ When you divide an array into two sub-arrays, the size of the left array should 
 Sort the left array before the right array
 You are allowed to use printf
 You are allowed to use malloc and free only once (only one call)
-Output: see example
+Output: see example.

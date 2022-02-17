@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
 """ Func to calculate the perimeter of an 'island' made of up a list of
-	int that form rows and columns """
+int that form rows and columns """
+
 
 def island_perimeter(grid):
 	""" Func to calculate the perimeter of an 'island' made of up a list of
-		int that form rows and columns """
+	int that form rows and columns """
+	
 	perimeter = 0
 	m = len(grid)
 	n = len(grid[0])
@@ -25,5 +27,5 @@ def island_perimeter(grid):
 					perimeter += 1
 				if bottom >= m or grid[bottom][j] == 0:
 					perimeter += 1
-					
+
 	return perimeter

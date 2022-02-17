@@ -5,9 +5,8 @@ int that form rows and columns """
 
 
 def island_perimeter(grid):
-	""" Func to calculate the perimeter of an 'island' made of up a list of
-	int that form rows and columns """
-	
+	""" Func to calculate the perimeter of an 'island'"""
+
 	perimeter = 0
 	m = len(grid)
 	n = len(grid[0])

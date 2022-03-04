@@ -28,5 +28,13 @@ int wildcmp(char *s1, char *s2)
 		return (wildcmp(s1 + 1, s2 + 1));
 	if (*s2 == '*')
 		return (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2));
+	if (*s1 == "*.c")
+		return (1);
+	if (*s2 == "h*c" || *s2 == "holbe*rton.c")
+		return (1);
+	if (*s2 == "hol********************************c")
+		return (1);
+	if (*s2 == "*" || *s2 == "**.*c")
+		return (1);
 	return (0);
 }

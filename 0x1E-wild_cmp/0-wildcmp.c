@@ -11,30 +11,29 @@
 
 int wildcmp(char *s1, char *s2)
 {
-	int i = 0;
-
 	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 	/* if *s2 is *, then it can match an empty string */
-	if (*s2 == '*' && *(s2 + 1) == '\0' && *s1 == '\0')
-		return (1);
-	if (s2[i++] == '*')
-		return (wildcmp(s1, s2 + 1));
 	if (*s1 == '\0' && *s2 != '\0')
-		return (0);
-	if (*s1 != '\0' && *s2 == '\0')
 		return (0);
 	if (*s1 == *s2)
 		return (wildcmp(s1 + 1, s2 + 1));
 	if (*s2 == '*')
-		return (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2));
-	if (*s1 == "*.c")
-		return (1);
-	if (*s2 == "h*c" || *s2 == "holbe*rton.c")
-		return (1);
-	if (*s2 == "hol********************************c")
-		return (1);
-	if (*s2 == "*" || *s2 == "**.*c")
-		return (1);
+	{
+		if (*(s2 + 1) == '*')
+			return (wildcmp(s1, s2 + 1));
+		if (wildcmp(s1, s2 + 1))
+		/* check if s1 is null */
+		{
+			if (*s1 == '\0')
+				return (1);
+			return (wildcmp(s1 + 1, s2 + 2));
+		}
+		if (*s1 == '\0')
+		{
+			return (0);
+		}
+		return (wildcmp(s1 + 1, s2));
+	}
 	return (0);
 }
